@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contact : Brask Growth</title>
+    <title>Cart : Brask Growth</title>
   </head>
 
   <body>
@@ -44,7 +44,7 @@
     <div class="header-mobile header_sticky">
       <div
         class="container d-flex align-items-center h-100"
-        style="background-color: #80808057"
+      
       >
         <a class="mobile-nav-activator d-block position-relative" href="#">
           <svg
@@ -83,7 +83,7 @@
           </svg>
           <span
             class="cart-amount d-block position-absolute js-cart-items-count"
-            >3</span
+            ></span
           >
         </a>
       </div>
@@ -92,7 +92,7 @@
       <nav
         class="header-mobile__navigation navigation d-flex flex-column w-100 position-absolute top-100 bg-body overflow-auto"
       >
-        <div class="container" style="background-color: #80808057">
+        <div class="container" >
           <div class="overflow-hidden">
             <ul class="navigation__list list-unstyled position-relative">
               <li class="navigation__item">
@@ -165,43 +165,85 @@
               </li>
             </ul>
           </nav>
-          
+          <div class="header-tools d-flex align-items-center">
+            <div class="header-tools__item hover-container"></div>
+            <div class="header-tools__item hover-container">
+              <a
+                class="header-tools__item js-open-aside"
+                href="#"
+                data-aside="customerForms"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <i class="fa-solid fa-user"></i>
+                  <use href="#icon_user" />
+                </svg>
+              </a>
+            </div>
+           
+          </div>
         </div>
       </div>
     </header>
     <main>
       <div class="mb-4 pb-4"></div>
-      <section class="contact-us container mb-5">
-        <div class="mw-930">
-          <h2 class="page-title">CONTACT US</h2>
+      <section class="shop-checkout container">
+        <h2 class="page-title">Cart</h2>
+        <div class="checkout-steps">
+          <a href="/cart" class="checkout-steps__item active">
+            <span class="checkout-steps__item-number">01</span>
+            <span class="checkout-steps__item-title">
+              <span>Shopping Bag</span>
+              <em>Manage Your Items List</em>
+            </span>
+          </a>
+          <a href="/checkout" class="checkout-steps__item">
+            <span class="checkout-steps__item-number">02</span>
+            <span class="checkout-steps__item-title">
+              <span>Shipping and Checkout</span>
+              <em>Checkout Your Items List</em>
+            </span>
+          </a>
+          <a href="#" class="checkout-steps__item">
+            <span class="checkout-steps__item-number">03</span>
+            <span class="checkout-steps__item-title">
+              <span>Confirmation</span>
+              <em>Review And Submit Your Order</em>
+            </span>
+          </a>
         </div>
-      </section>
-      <section class="contact-us container mt-5">
-        <div class="mw-930">
-          <div class="row mb-5">
-            <div class="col-lg-12 col-12">
-              <p class="mb-4">Delhi<br>India</p>
-              <p class="mb-4">braskgrowth@gmail.com</p>
-            </div>
+        <div class="shopping-cart">
+          <div class="cart-table__wrapper">
+            <table class="cart-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th></th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+            
+               
+              </tbody>
+            </table>
           </div>
-          <div class="contact-us__form">
-            <form name="contact-us-form" class="needs-validation" novalidate="">
-              <h3 class="mb-5">Get In Touch</h3>
-              <div class="form-floating my-4">
-                <input type="text" class="form-control" id="contact_us_name" placeholder="Name *" required="">
-                <label for="contact_us_name">Name *</label>
+          <div class="shopping-cart__totals-wrapper">
+            <div class="sticky-content">
+              <div class="shopping-cart__totals">
+                <h3>Cart Totals</h3>
+                <table class="cart-totals" id="">
+                
+                </table>
               </div>
-              <div class="form-floating my-4">
-                <input type="email" class="form-control" id="contact_us_email" placeholder="Email address *" required="">
-                <label for="contact_us_name">Email address *</label>
+              <div class="mobile_fixed-btn_wrapper">
+                <div class="button-wrapper container">
+                  <button class="btn btn-primary " onclick="window.location.href='/checkout'">PROCEED TO CHECKOUT</button>
+                </div>
               </div>
-              <div class="my-4">
-                <textarea class="form-control form-control_gray" placeholder="Your Message" cols="30" rows="8" required=""></textarea>
-              </div>
-              <div class="my-4">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </section>
@@ -413,7 +455,17 @@
         </div>
       </div>
     </div>
-  
+    <div class="aside aside_right overflow-hidden cart-drawer" id="cartDrawer">
+      <div class="aside-header d-flex align-items-center">
+        <h3 class="text-uppercase fs-6 mb-0">
+          SHOPPING BAG (
+          <span class="cart-amount js-cart-items-count">1</span> )
+        </h3>
+        <button
+          class="btn-close-lg js-close-aside btn-close-aside ms-auto"
+        ></button>
+      </div>
+    </div>
     <div id="scrollTop" class="visually-hidden end-0"></div>
     <div class="page-overlay"></div>
     <script src="../js/plugins/jquery.min.js"></script>
@@ -423,5 +475,135 @@
     <script src="../js/plugins/countdown.js"></script>
     <script src="../js/plugins/jquery.fancybox.js"></script>
     <script src="../js/theme.js"></script>
+    <script>
+        function updateCartTable() {
+            // Retrieve the cart data from localStorage
+            const cart = JSON.parse(localStorage.getItem("cart")) || {};
+          
+            // Get the tbody element
+            const tbody = document.querySelector("tbody");
+          
+            // Clear the current table rows
+            tbody.innerHTML = "";
+          
+            // Iterate over cart items and generate table rows
+            Object.keys(cart).forEach((type) => {
+              const item = cart[type];
+              const subtotal = item.price * item.quantity;
+          
+              const row = `
+                <tr>
+                  <td>
+                   
+                  </td>
+                  <td>
+                    <div class="shopping-cart__product-item__detail">
+                      <h4><a href="product1_simple.html">${item.name}</a></h4>
+                      <ul class="shopping-cart__product-item__options">
+                        <li>Color: ${item.color || "N/A"}</li>
+                        <li>Size: ${item.size || "N/A"}</li>
+                      </ul>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="shopping-cart__product-price">$${item.price}</span>
+                  </td>
+                  <td>
+                    <div class="qty-control position-relative qty-initialized">
+                      <input type="number" name="quantity" value="${item.quantity}" min="1" 
+                        class="qty-control__number text-center" 
+                        onchange="updateQuantity('${type}', this.value)">
+                      <div class="qty-control__reduce" onclick="updateQuantity('${type}', ${item.quantity - 1})">-</div>
+                      <div class="qty-control__increase" onclick="updateQuantity('${type}', ${item.quantity + 1})">+</div>
+                    </div><!-- .qty-control -->
+                  </td>
+                  <td>
+                    <span class="shopping-cart__subtotal">$${subtotal}</span>
+                  </td>
+                  <td>
+                    <a href="#" class="remove-cart" onclick="removeFromCart('${type}')">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="#767676" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.259435 8.85506L9.11449 0L10 0.885506L1.14494 9.74056L0.259435 8.85506Z"></path>
+                        <path d="M0.885506 0.0889838L9.74057 8.94404L8.85506 9.82955L0 0.97449L0.885506 0.0889838Z"></path>
+                      </svg>                  
+                    </a>
+                  </td>
+                </tr>
+              `;
+          
+              // Append the row to the table body
+              tbody.innerHTML += row;
+            });
+          }
+          
+          // Update quantity of an item
+          function updateQuantity(type, newQuantity) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || {};
+            if (cart[type] && newQuantity > 0) {
+              cart[type].quantity = newQuantity;
+              localStorage.setItem("cart", JSON.stringify(cart));
+              updateCartTable();
+            }
+          }
+          
+          // Remove item from cart
+          function removeFromCart(type) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || {};
+            if (cart[type]) {
+              delete cart[type];
+              localStorage.setItem("cart", JSON.stringify(cart));
+              updateCartTable();
+            }
+          }
+          
+          // Initial call to populate the table
+          updateCartTable();
+          function updateCartTotals() {
+            // Retrieve the cart data from localStorage
+            const cart = JSON.parse(localStorage.getItem("cart")) || {};
+          
+            // Calculate subtotal
+            let subtotal = 0;
+            Object.values(cart).forEach((item) => {
+              subtotal += item.price * item.quantity;
+            });
+          
+            // Define VAT and total (Assume VAT is 10%)
+            const vat = (subtotal * 0.1).toFixed(2); // 10% VAT
+            const total = (subtotal + parseFloat(vat)).toFixed(2);
+          
+            // Update the Cart Totals section
+            document.querySelector(".cart-totals").innerHTML = `
+              <tbody>
+                <tr>
+                  <th>Subtotal</th>
+                  <td>₹${subtotal.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <th>Shipping</th>
+                  <td>
+                    <div class="form-check">
+                      <input class="form-check-input form-check-input_fill" type="checkbox" value="" id="free_shipping">
+                      <label class="form-check-label" for="free_shipping">Free shipping</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>VAT</th>
+                  <td>₹${vat}</td>
+                </tr>
+                <tr>
+                  <th>Total</th>
+                  <td>₹${total}</td>
+                </tr>
+              </tbody>
+            `;
+          }
+          
+          // Initial call to update totals when the page loads
+          updateCartTotals();
+          
+          
+    </script>
   </body>
 </html>
